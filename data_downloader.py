@@ -14,9 +14,10 @@ def read_local_dataset(local_data_path, split_name='train', num_examples=5):
     if split_name not in dataset:
         raise ValueError(f"Split '{split_name}' not found in the dataset.")
 
-    train_split = dataset[split_name].to_pandas()  # Shuffle the dataset (optional)
+    test_split = dataset[split_name].to_pandas()  # Shuffle the dataset (optional)
     # Display the first 'num_examples' examples
-    print(train_split[:5])
+    # print(test_split[:5])
+    test_split[:500].to_csv("CNNML_tiny.csv", index=False)
 
 if __name__ == "__main__":
     # version = "3.0.0"
