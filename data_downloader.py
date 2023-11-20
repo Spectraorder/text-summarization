@@ -10,6 +10,7 @@ def download_dataset(dataset_name, save_path, version=None):
     print(f"Dataset '{dataset_name}' downloaded and saved to '{save_path}'")
 
 
+import pandas as pd
 
 def read_local_dataset(local_data_path, split_name='train', num_examples=5):
     dataset = load_from_disk(local_data_path)
