@@ -2,11 +2,26 @@ import numpy as np
 import networkx as nx
 from sklearn.metrics.pairwise import cosine_similarity
 import nltk
+import pandas as pd
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
 
 nltk.download('punkt')
 nltk.download('stopwords')
+
+class data_stream:
+    def __init__(self, article: str, highlight: str, id: str) -> None:
+        self.article = article
+        self.highlight = highlight
+        self.id = id
+        
+    def __str__(self) -> str:
+        return self.article
+        
+def read_data(path: str) -> list:
+    with open(path, 'r') as f:
+        df = pd.read_csv(path)
+    return [data_stream(*row) for row in df.itertuples(index=False)]
 
 def load_glove_embeddings(glove_file):
     embeddings_dict = {}

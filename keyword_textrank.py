@@ -4,10 +4,25 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from collections import defaultdict
 import nltk
+import pandas as pd
 
 # Download required NLTK resources
 nltk.download('punkt')
 nltk.download('stopwords')
+
+class data_stream:
+    def __init__(self, article: str, highlight: str, id: str) -> None:
+        self.article = article
+        self.highlight = highlight
+        self.id = id
+        
+    def __str__(self) -> str:
+        return self.article
+        
+def read_data(path: str) -> list:
+    with open(path, 'r') as f:
+        df = pd.read_csv(path)
+    return [data_stream(*row) for row in df.itertuples(index=False)]
 
 def textrank_keyword_extraction(text, window_size=4, num_keywords=10):
     # Tokenize and filter stopwords
