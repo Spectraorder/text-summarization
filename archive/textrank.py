@@ -18,7 +18,7 @@ def remove_stopwords(sen):
     return sen_new
 
 
-df = pd.read_csv("tennis_articles_v4.csv")
+df = pd.read_csv("../small_datasets/tennis_articles_v4.csv")
 
 sentences = []
 for s in df['article_text']:
@@ -34,7 +34,7 @@ clean_sentences = [s.lower() for s in clean_sentences]
 clean_sentences = [remove_stopwords(r.split()) for r in clean_sentences]
 
 word_embeddings = {}
-f = open('glove_6B/glove.6B.100d.txt', encoding='utf-8')
+f = open('../glove_6B/glove.6B.100d.txt', encoding='utf-8')
 for line in f:
     values = line.split()
     word = values[0]
