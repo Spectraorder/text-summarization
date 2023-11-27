@@ -11,11 +11,8 @@ if __name__ == "__main__":
     # Example usage
     reference_translation = "the cat is on the mat"
     candidate_translation = "the cat sat on the mat"
-    bleu_score = calculate_bleu(candidate_translation, reference_translation)
-    print("BLEU Score:", bleu_score)
+    rouge = get_rouge(reference_translation, candidate_translation)
+    blue = get_blue(reference_translation, candidate_translation)
+    print(rouge, blue)
+    f1 = get_f_measure(rouge, blue)
 
-    # Example usage
-    reference = "the cat is on the mat"
-    candidate = "the cat sat on the mat"
-    rouge_score = rouge_n(get_ngrams(candidate, 2), get_ngrams(reference, 2), 2)
-    print("ROUGE-2 Score:", rouge_score)
