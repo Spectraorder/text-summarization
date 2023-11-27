@@ -2,3 +2,6 @@
 glove_6B
 data/
 .history/
+/TextRank/__pycache__/*.pyc
+*.pyc
+*.pyc

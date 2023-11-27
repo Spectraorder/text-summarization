@@ -7,7 +7,10 @@ with open(module_path+'/statics/stopwords.txt', 'r', encoding='utf-8') as f:
     for w in f.readlines():
         STOPWORDS.append(w.strip())
 
-PROPERTY_FILTER = ['an', 'i', 'j', 'l', 'n', 'nr', 'nrfg', 'ns', 'nt', 'nz', 't', 'v', 'vd', 'vn', 'eng']
+PROPERTY_FILTER = list()
+with open(module_path+'/statics/pos.txt', 'r', encoding='utf-8') as f:
+    for p in f.readlines():
+        PROPERTY_FILTER.append(p.strip())
 
 
 

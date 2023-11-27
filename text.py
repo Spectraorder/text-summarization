@@ -21,3 +21,4 @@ This material may not be published, broadcast, rewritten, or redistributed.
 
 T = textRank.TextRank(text, pr_config={'alpha': 0.85, 'max_iter': 100})
 print(T.get_n_sentences(3))
+print(T.get_n_keywords(10))

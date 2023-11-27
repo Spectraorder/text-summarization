@@ -3,8 +3,12 @@ from nltk.tokenize import word_tokenize
 import nltk
 import re
 from .const import STOPWORDS, PROPERTY_FILTER
+import string
+from nltk.tokenize import WordPunctTokenizer
 
-SENTENCE_SP_PATTERN = re.compile(r"。|\.|！|\!|？|\?|;")
+sent_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+SENTENCE_SP_PATTERN = re.compile(r"\.|！|\!|？|\?|;")
+punc = string.punctuation
 nltk.download('averaged_perceptron_tagger')
 
 class Text:
@@ -33,12 +37,11 @@ class Text:
 
         for s in sents:
             cut_s = word_tokenize(s)
-            cut_pos = nltk.pos_tag(cut_s)
-            cut_s = zip(cut_s, cut_pos)
-            # if use_property:
-            #     cut_s = [w for w in cut_s if w.flag in PROPERTY_FILTER]
-            # else:
-            cut_s = [w for w in cut_s]
+            cut_s = nltk.pos_tag(cut_s)
+            if use_property:
+                cut_s = [w for w in cut_s if w[1] in PROPERTY_FILTER]
+            else:
+                cut_s = [w for w in cut_s]
 
             cut_s = self._clean_words(cut_s)
             if no_stopwords:
@@ -49,12 +52,13 @@ class Text:
 
     @staticmethod
     def _sentence_split(text):
-        sents = [i.strip() for i in SENTENCE_SP_PATTERN.split(text) if i != '' ]
+        sents = sent_tokenizer.tokenize(text)
+        # sents = [i.strip() for i in SENTENCE_SP_PATTERN.split(text) if i != '' ]
         return sents
 
     @staticmethod
     def _clean_words(sent):
         w_ls = [w[0].strip() for w in sent if w[1] != 'x']
-        # w_ls = [word for word in w_ls if len(word) > 0]
+        w_ls = [word for word in w_ls if len(word) > 0]
         return w_ls
 
