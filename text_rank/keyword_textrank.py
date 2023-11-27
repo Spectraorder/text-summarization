@@ -82,7 +82,7 @@ from collections import defaultdict
 nltk.download('punkt')
 nltk.download('stopwords')
 
-def textrank_keyword_extraction(text, num_keywords=10, window_size=4):
+def textrank_keyword_extraction(text, num_keywords=30, window_size=2):
     # Tokenize and preprocess text
     words = [word.lower() for word in word_tokenize(text) if word.isalpha()]
     stop_words = set(stopwords.words('english'))

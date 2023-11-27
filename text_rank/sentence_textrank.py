@@ -32,19 +32,6 @@ nltk.download('stopwords')
 #         df = pd.read_csv(path)
 #     return [data_stream(*row) for row in df.itertuples(index=False)]
 
-def load_glove_embeddings(glove_file):
-    embeddings_dict = {}
-    with open(glove_file, 'r', encoding='utf-8') as f:
-        for line in f:
-            values = line.split()
-            word = values[0]
-            vector = np.asarray(values[1:], "float32")
-            embeddings_dict[word] = vector
-    return embeddings_dict
-
-# Example of loading GloVe embeddings
-glove_file = 'glove_6B/glove.6B.100d.txt'  # Replace with your GloVe file path
-word_embeddings = load_glove_embeddings(glove_file)
 
 # def textrank_sentence_extraction(text, num_sentences=5):
 #     # Tokenize the text into sentences
@@ -97,6 +84,20 @@ word_embeddings = load_glove_embeddings(glove_file)
 # summary = textrank_sentence_extraction(text)
 # print(summary)
 
+def load_glove_embeddings(glove_file):
+    embeddings_dict = {}
+    with open(glove_file, 'r', encoding='utf-8') as f:
+        for line in f:
+            values = line.split()
+            word = values[0]
+            vector = np.asarray(values[1:], "float32")
+            embeddings_dict[word] = vector
+    return embeddings_dict
+
+# Example of loading GloVe embeddings
+glove_file = 'glove_6B/glove.6B.100d.txt'  # Replace with your GloVe file path
+word_embeddings = load_glove_embeddings(glove_file)
+
 def textrank_sentence_extraction(text, num_sentences=5):
     # Tokenize text into sentences
     sentences = sent_tokenize(text)
@@ -129,7 +130,7 @@ def textrank_sentence_extraction(text, num_sentences=5):
         
         if np.abs(prev_pagerank_scores - pagerank_scores).sum() < threshold:
             break
-
+        print(pagerank_scores)
     # Extract top N sentences as summary
     top_sentence_indices = pagerank_scores.argsort()[-num_sentences:][::-1]
     summary = ' '.join([sentences[i] for i in top_sentence_indices])
