@@ -2,4 +2,4 @@
 glove_6B
 data/
 .history/
-*.pyc
+**/*.pyc
