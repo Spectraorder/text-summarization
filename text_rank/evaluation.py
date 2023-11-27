@@ -23,15 +23,3 @@ def rouge_n(evaluated_ngrams, reference_ngrams, n):
 def get_ngrams(text, n):
     words = text.split()
     return zip(*[words[i:] for i in range(n)])
-
-# Example usage
-reference_translation = "the cat is on the mat"
-candidate_translation = "the cat sat on the mat"
-bleu_score = calculate_bleu(candidate_translation, reference_translation)
-print("BLEU Score:", bleu_score)
-
-# Example usage
-reference = "the cat is on the mat"
-candidate = "the cat sat on the mat"
-rouge_score = rouge_n(get_ngrams(candidate, 2), get_ngrams(reference, 2), 2)
-print("ROUGE-2 Score:", rouge_score)
