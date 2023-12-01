@@ -13,6 +13,10 @@ if __name__ == "__main__":
     candidate_translation = "the cat sat on the mat"
     rouge = get_rouge(reference_translation, candidate_translation)
     blue = get_blue(reference_translation, candidate_translation)
-    print(rouge, blue)
+
+    print("Rouge Score:", rouge)
+    print("Blue Score:", blue)
+
     f1 = get_f_measure(rouge, blue)
+    print("F1 Measure:", f1)
 
