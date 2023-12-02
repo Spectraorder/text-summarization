@@ -14,19 +14,8 @@ class data_stream:
     def __str__(self) -> str:
         return self.article
 
-
-def read_data(path: str) -> list:
-    # with open(path, 'r') as f:
-    #     df = pd.read_csv(path)
-    # return [data_stream(*row) for row in df.itertuples(index=False)]
-    df = pd.read_csv(path)
-    data_streams = []
-    for row in df.itertuples(index=False):
-        keywords = extract_keywords(row.article)
-        data_streams.append(data_stream(*row, keywords=keywords))
-
-    return data_streams
-
+    def get_highlight(self) -> str:
+        return self.highlight
 
 def extract_keywords(text: str) -> list:
     tokens = word_tokenize(text)
@@ -37,3 +26,18 @@ def extract_keywords(text: str) -> list:
     top_keywords = [word for word, freq in freq_dist.most_common(5)]  # Adjust 5 to the desired number of keywords
 
     return top_keywords
+
+def read_data(path: str, highlight = False) -> list:
+    #df = pd.read_csv(path)
+    #data_streams = []
+    #for row in df.itertuples(index=False):
+        #keywords = extract_keywords(row.article)
+        #data_streams.append(data_stream(*row, keywords=keywords))
+
+    #return data_streams
+    with open(path, 'r') as f:
+        df = pd.read_csv(path)
+    if highlight:
+        return [data.get_highlight() for data in (data_stream(*row) for row in df.itertuples(index=False))]
+    else:
+        return [data_stream(*row) for row in df.itertuples(index=False)]
