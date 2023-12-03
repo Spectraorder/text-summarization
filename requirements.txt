@@ -3,3 +3,6 @@ scikit-learn
 numpy
 nltk
 rouge
+datasets
+transformers
+torch

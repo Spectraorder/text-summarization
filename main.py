@@ -1,5 +1,3 @@
-from text_rank.text_rank import *
-from text_rank.dataset import read_data
 from text_rank.evaluation import *
 
 # fine tune the number of keywords
