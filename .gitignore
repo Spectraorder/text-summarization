@@ -3,3 +3,6 @@ glove_6B
 data/
 .history/
 **/*.pyc
+.ipynb_checkpoints
+results
+bart_cnn_dailymail_finetuned

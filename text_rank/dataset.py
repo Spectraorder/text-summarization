@@ -2,7 +2,7 @@ import pandas as pd
 from nltk import word_tokenize
 from nltk.corpus import stopwords
 from nltk.probability import FreqDist
-from config import *
+from .config import *
 
 
 class data_stream:
