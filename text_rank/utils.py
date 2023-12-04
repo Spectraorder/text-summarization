@@ -52,9 +52,7 @@ def sent_adj_matrix(words_pro):
             matrix[y, x] = s
     return matrix
 
-
-def cal_score(ad_matrix, alpha=0.85, max_iter=100):
-
+def cal_score(ad_matrix, alpha=0.85, max_iter=100, opt="tf_idf"):
     N = len(ad_matrix)
     ad_sum = ad_matrix.sum(axis=0).astype(float)
     ad_sum[ad_sum == 0.0] = 0.001
