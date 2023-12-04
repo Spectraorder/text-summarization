@@ -3,6 +3,7 @@ from rouge import Rouge
 from nltk.translate.bleu_score import sentence_bleu
 from text_rank.dataset import read_data
 from text_rank.text_rank import TextRank
+import tqdm
 
 rouge = Rouge()
 def get_rouge(label, pred, type='rouge-1'):
@@ -16,7 +17,7 @@ def get_blue(label, pred, weights=(1, 0, 0, 0)):
 def get_f_measure(rouge, blue):
     if rouge == 0 or blue == 0:
         return 0
-    return 1.0 / (1.0 / rouge + 1.0 / blue)
+    return 2.0 / (1.0 / rouge + 1.0 / blue)
 
 def get_evaluation(path, numOfSentences, numOfKeywords, use_langauge_model=False, language_model=None):
     data = read_data(path)
@@ -24,7 +25,7 @@ def get_evaluation(path, numOfSentences, numOfKeywords, use_langauge_model=False
     rouge_score = []
     blue_score = []
     f1_score = []
-    for i in range(len(data)):
+    for i in tqdm.tqdm(range(len(data))):
         text = str(data[i])
         if use_langauge_model:
             model_summary = language_model.generate_summarisation(text)
