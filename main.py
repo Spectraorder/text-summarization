@@ -1,5 +1,6 @@
 from text_rank.evaluation import *
 from text_rank.langauge_model import language_model
+from text_rank.config import *
 
 # fine tune the number of keywords
 if __name__ == "__main__":
@@ -22,4 +23,4 @@ if __name__ == "__main__":
 
     for k in range(3, 8):
         for j in range(1, 4):
-            get_evaluation("./tiny_CNN_DM/test_dataset.csv", j, k, use_langauge_model=True, language_model=model)
+            get_evaluation("./tiny_CNN_DM/test_dataset.csv", j, k, use_langauge_model=USE_LANGUAGE_MODEL, language_model=model)

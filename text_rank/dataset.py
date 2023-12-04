@@ -6,12 +6,14 @@ from .config import *
 
 
 class data_stream:
-    def __init__(self, article: str, highlight: str, id: str, keywords: list = None, use_keywords=True) -> None:
+    def __init__(self, article: str, highlight: str, id: str) -> None:
         self.article = article
         self.highlight = highlight
         self.id = id
-        if use_keywords:
-            self.keywords = keywords if keywords else extract_keywords(article)
+        if USE_KEYWORD:
+            keywords = extract_keywords(self.article)
+            self.keywords = keywords if keywords else extract_keywords(self.article)
+
 
     def __str__(self) -> str:
         return self.article
@@ -30,13 +32,13 @@ def extract_keywords(text: str) -> list:
     return top_keywords
 
 def read_data(path: str, highlight = False) -> list:
-    #df = pd.read_csv(path)
-    #data_streams = []
-    #for row in df.itertuples(index=False):
-        #keywords = extract_keywords(row.article)
-        #data_streams.append(data_stream(*row, keywords=keywords))
-
-    #return data_streams
+    # df = pd.read_csv(path)
+    # data_streams = []
+    # for row in df.itertuples(index=False):
+    #     keywords = extract_keywords(row.article)
+    #     data_streams.append(data_stream(*row, keywords=keywords))
+    #
+    # return data_streams
     with open(path, 'r') as f:
         df = pd.read_csv(path)
     if highlight:
