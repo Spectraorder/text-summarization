@@ -41,7 +41,7 @@ def get_evaluation(path, numOfSentences, numOfKeywords, use_langauge_model=False
         rouge_score.append(rouge)
         blue_score.append(blue)
         f1_score.append(f1)
-    print('Sentence Extraction Evaluation: ' + str(numOfKeywords) + ' keywords')
+    print('Sentence Extraction Evaluation: ' + str(numOfKeywords) + ' keywords ' + str(numOfSentences) + ' sentences')
     print('Average Rouge: ' + str(np.mean(rouge_score)))
     print('Average BLEU: ' + str(np.mean(blue_score)))
     print('Average F1: ' + str(np.mean(f1_score)))

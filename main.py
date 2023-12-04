@@ -21,4 +21,5 @@ if __name__ == "__main__":
     # print("F1 Measure:", f1)
 
     for k in range(3, 8):
-        get_evaluation("./tiny_CNN_DM/test_dataset.csv", 2, k, use_langauge_model=True, language_model=model)
+        for j in range(1, 4):
+            get_evaluation("./tiny_CNN_DM/test_dataset.csv", j, k, use_langauge_model=True, language_model=model)
