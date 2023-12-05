@@ -57,6 +57,7 @@ class Text:
 
     @staticmethod
     def _sentence_split(text):
+        # filtering
         sents = sent_tokenizer.tokenize(text)
         return sents
 

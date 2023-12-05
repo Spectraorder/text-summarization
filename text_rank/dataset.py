@@ -7,6 +7,7 @@ from .config import *
 
 class data_stream:
     def __init__(self, article: str, highlight: str, id: str) -> None:
+        # filtering
         self.article = article
         self.highlight = highlight
         self.id = id
