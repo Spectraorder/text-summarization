@@ -10,6 +10,7 @@ class data_stream:
         self.article = article
         self.highlight = highlight
         self.id = id
+        self.keywords = []
         if USE_KEYWORD:
             keywords = extract_keywords(self.article)
             self.keywords = keywords if keywords else extract_keywords(self.article)
