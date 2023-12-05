@@ -1,21 +1,11 @@
 import pandas as pd
-from nltk import word_tokenize
-from nltk.corpus import stopwords
-from nltk.probability import FreqDist
-from .config import *
 
 
 class data_stream:
     def __init__(self, article: str, highlight: str, id: str) -> None:
-        # filtering
         self.article = article
         self.highlight = highlight
         self.id = id
-        self.keywords = []
-        if USE_KEYWORD:
-            keywords = extract_keywords(self.article)
-            self.keywords = keywords if keywords else extract_keywords(self.article)
-
 
     def __str__(self) -> str:
         return self.article
@@ -23,17 +13,8 @@ class data_stream:
     def get_highlight(self) -> str:
         return self.highlight
 
-def extract_keywords(text: str) -> list:
-    tokens = word_tokenize(text)
-    stop_words = set(stopwords.words('english'))
-    filtered_tokens = [word.lower() for word in tokens if word.isalnum() and word.lower() not in stop_words]
 
-    freq_dist = FreqDist(filtered_tokens)
-    top_keywords = [word for word, freq in freq_dist.most_common(MOST_COMMON)]  # Adjust 5 to the desired number of keywords
-
-    return top_keywords
-
-def read_data(path: str, highlight = False) -> list:
+def read_data(path: str, highlight=False) -> list:
     # df = pd.read_csv(path)
     # data_streams = []
     # for row in df.itertuples(index=False):

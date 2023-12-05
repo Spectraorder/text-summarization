@@ -1,6 +1,9 @@
 import nltk
 from nltk.tokenize import word_tokenize
 from .meta import read_static_data
+from nltk.corpus import stopwords
+from nltk.probability import FreqDist
+from .config import *
 
 sent_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 STOPWORDS, PROPERTY_FILTER = read_static_data()
@@ -57,8 +60,18 @@ class Text:
 
     @staticmethod
     def _sentence_split(text):
-        # filtering
         sents = sent_tokenizer.tokenize(text)
+        if FILTER:
+            all_tokens = [word.lower() for sent in sents for word in word_tokenize(sent) if word.isalnum()]
+
+            stop_words = set(stopwords.words('english'))
+            filtered_tokens = [word for word in all_tokens if word not in stop_words]
+
+            freq_dist = FreqDist(filtered_tokens)
+            top_keywords = [word for word, freq in freq_dist.most_common(5)]
+            filtered_sents = [sent for sent in sents if any(keyword in sent.lower() for keyword in top_keywords)]
+
+            return filtered_sents
         return sents
 
     @staticmethod
