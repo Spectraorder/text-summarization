@@ -13,11 +13,12 @@ class language_model:
         self.model = BartForConditionalGeneration.from_pretrained(self.weight_path)
         self.model.to(self.device)
 
-    def generate_summarisation(self, text: str):
+    def generate_summarisation(self, text: str, is_before: bool):
         prompt_text = self.prefix + str(text)
         inputs = self.tokenizer([prompt_text], max_length=1024, return_tensors='pt', truncation=True)
         inputs.to(self.device)
-        summary_ids = self.model.generate(inputs['input_ids'], num_beams=4, min_length=MIN_MODEL_GEN, max_length=MAX_MODEL_GEN,
+        summary_ids = self.model.generate(inputs['input_ids'], num_beams=4, min_length=MIN_MODEL_GEN_B if is_before else MIN_MODEL_GEN_A,
+                                          max_length=MAX_MODEL_GEN_B if is_before else MAX_MODEL_GEN_A,
                                      early_stopping=False)
         summary = self.tokenizer.decode(summary_ids[0], skip_special_tokens=True)
         return summary
