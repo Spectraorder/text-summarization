@@ -7,7 +7,7 @@ import tqdm
 from .config import *
 
 rouge = Rouge()
-def get_rouge(label, pred, type='rouge-l'):
+def get_rouge(label, pred, type='rouge-1'):
     if type not in ['rouge-1', 'rouge-2', 'rouge-l']:
         type = 'rouge-1'
     return rouge.get_scores(pred, label)[0][type]['r']
