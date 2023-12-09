@@ -12,6 +12,7 @@ MIN_MODEL_GEN_B = 100
 MAX_MODEL_GEN_B = 200
 MIN_MODEL_GEN_A = 50
 MAX_MODEL_GEN_A = 70
+USE_TEXTRANK = False
 M_NAME = "lidiya/bart-base-samsum"
 M_WEIGHT = "./bart_cnn_dailymail_finetuned"
 # M_NAME = "lidiya/bart-large-xsum-samsum"

@@ -29,12 +29,13 @@ def get_evaluation(path, numOfSentences, numOfKeywords, language_model=None):
     for i in tqdm.tqdm(range(len(data))):
         text = str(data[i])
         if USE_LANGUAGE_MODEL_BEFORE_EXT:
-            model_summary = language_model.generate_summarisation(text, True)
-        T = TextRank(model_summary if USE_LANGUAGE_MODEL_BEFORE_EXT else text, pr_config={'alpha': 0.85, 'max_iter': 100})
-        keywords = [word[0] for word in T.get_n_keywords(numOfKeywords)]
-        sentences = [sen[0] for sen in T.get_n_sentences(20)]
-        summary = [sen for sen in sentences if any(word in sen for word in keywords)][:numOfSentences]
-        summary = ' '.join(summary)
+            summary = language_model.generate_summarisation(text, True)
+        if USE_TEXTRANK:
+            T = TextRank(summary if USE_LANGUAGE_MODEL_BEFORE_EXT else text, pr_config={'alpha': 0.85, 'max_iter': 100})
+            keywords = [word[0] for word in T.get_n_keywords(numOfKeywords)]
+            sentences = [sen[0] for sen in T.get_n_sentences(20)]
+            summary = [sen for sen in sentences if any(word in sen for word in keywords)][:numOfSentences]
+            summary = ' '.join(summary)
         if USE_LANGUAGE_MODEL_AFTER_EXT:
             summary = language_model.generate_summarisation(summary, False)
         target = str(label[i])

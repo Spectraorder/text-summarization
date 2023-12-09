@@ -21,6 +21,6 @@ if __name__ == "__main__":
     # f1 = get_f_measure(rouge, blue)
     # print("F1 Measure:", f1)
 
-    for j in range(3, 5):
-        for k in range(4, 7):
+    for j in range(6, 7):
+        for k in range(5, 6):
             get_evaluation("./tiny_CNN_DM/test_dataset.csv", j, k, language_model=model)
