@@ -67,7 +67,7 @@ class Text:
             filtered_tokens = [word for word in all_tokens if word not in stop_words]
 
             freq_dist = FreqDist(filtered_tokens)
-            top_keywords = [word for word, freq in freq_dist.most_common(5)]
+            top_keywords = [word for word, freq in freq_dist.most_common(MOST_COMMON)]
             filtered_sents = [sent for sent in sents if any(keyword in sent.lower() for keyword in top_keywords)]
 
             return filtered_sents

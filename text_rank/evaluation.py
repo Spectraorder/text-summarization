@@ -7,18 +7,23 @@ import tqdm
 from .config import *
 
 rouge = Rouge()
+
+
 def get_rouge(label, pred, type='rouge-1'):
     if type not in ['rouge-1', 'rouge-2', 'rouge-l']:
         type = 'rouge-1'
     return rouge.get_scores(pred, label)[0][type]['r']
 
+
 def get_blue(label, pred, weights=(1, 0, 0, 0)):
     return sentence_bleu([label], pred, weights)
+
 
 def get_f_measure(rouge, blue):
     if rouge == 0 or blue == 0:
         return 0
     return 2.0 / (1.0 / rouge + 1.0 / blue)
+
 
 def get_evaluation(path, numOfSentences, numOfKeywords, language_model=None):
     with open(LOG_NAME, "a", encoding="utf-8") as f:
@@ -32,7 +37,8 @@ def get_evaluation(path, numOfSentences, numOfKeywords, language_model=None):
             if USE_LANGUAGE_MODEL_BEFORE_EXT:
                 summary = language_model.generate_summarisation(text, True)
             if USE_TEXTRANK:
-                T = TextRank(summary if USE_LANGUAGE_MODEL_BEFORE_EXT else text, pr_config={'alpha': 0.85, 'max_iter': 100})
+                T = TextRank(summary if USE_LANGUAGE_MODEL_BEFORE_EXT else text,
+                             pr_config={'alpha': 0.85, 'max_iter': 100})
                 keywords = [word[0] for word in T.get_n_keywords(numOfKeywords)]
                 sentences = [sen[0] for sen in T.get_n_sentences(20)]
                 summary = [sen for sen in sentences if any(word in sen for word in keywords)][:numOfSentences]
@@ -46,9 +52,12 @@ def get_evaluation(path, numOfSentences, numOfKeywords, language_model=None):
             rouge_score.append(rouge)
             blue_score.append(blue)
             f1_score.append(f1)
-        print('Sentence Extraction Evaluation: ' + str(numOfKeywords) + ' keywords ' + str(numOfSentences) + ' sentences')
+        print(
+            'Sentence Extraction Evaluation: ' + str(numOfKeywords) + ' keywords ' + str(numOfSentences) + ' sentences')
         print('Average Rouge: ' + str(np.mean(rouge_score)))
         print('Average BLEU: ' + str(np.mean(blue_score)))
         print('Average F1: ' + str(np.mean(f1_score)))
         f.write(f"sentences,keywords,window,LM_before,LM_after,filter,alpha,max_iter\n")
-        f.write(f"{numOfSentences},{numOfKeywords},{WINDOW_SIZE}，{USE_LANGUAGE_MODEL_BEFORE_EXT},{USE_LANGUAGE_MODEL_AFTER_EXT},{FILTER},{ALPHA},{MAX_ITER}\n")
+        f.write(
+            f"{numOfSentences},{numOfKeywords},{WINDOW_SIZE}，{USE_LANGUAGE_MODEL_BEFORE_EXT},{USE_LANGUAGE_MODEL_AFTER_EXT},{FILTER},{ALPHA},{MAX_ITER}\n")
+        return np.mean(rouge_score), np.mean(blue_score), np.mean(f1_score)
