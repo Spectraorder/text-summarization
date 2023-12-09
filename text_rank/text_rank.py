@@ -8,9 +8,9 @@ download_corpus()
 
 class TextRank(Text):
     def __init__(self,
-                 text=None, windows=2,
+                 text=None, windows=WINDOW_SIZE,
                  use_property=True, no_stopwords=True,
-                 pr_config={'alpha': 0.85, 'max_iter': 100}):
+                 pr_config={'alpha': ALPHA, 'max_iter': MAX_ITER}):
         super(TextRank, self).__init__(text, use_property, no_stopwords)
         self.pr_config = pr_config
         self.windows = windows

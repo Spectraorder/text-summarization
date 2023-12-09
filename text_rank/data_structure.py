@@ -55,7 +55,6 @@ class Text:
             if no_stopwords:
                 cut_s = [w.strip() for w in cut_s if w.strip() not in STOPWORDS]
             words.append(cut_s)
-
         return words
 
     @staticmethod
