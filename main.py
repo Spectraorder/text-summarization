@@ -15,8 +15,7 @@ if __name__ == "__main__":
         for k in range(1, 6):
             # get_evaluation("./tiny_CNN_DM/test_dataset.csv", j, k, language_model=model)
             for w in range(2, 6):
-                WINDOW_SIZE = w
-                rouge, bleu, f1 = get_evaluation("./tiny_CNN_DM/test_dataset.csv", j, k, model)
+                rouge, bleu, f1 = get_evaluation("./tiny_CNN_DM/test_dataset.csv", j, k, w, model)
                 rouge = str(round(rouge, 4))
                 bleu = str(round(bleu, 4))
                 f1 = str(round(f1, 4))

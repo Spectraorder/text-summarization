@@ -8,7 +8,7 @@ download_corpus()
 
 class TextRank(Text):
     def __init__(self,
-                 text=None, windows=WINDOW_SIZE,
+                 text=None, windows=2,
                  use_property=True, no_stopwords=True,
                  pr_config={'alpha': ALPHA, 'max_iter': MAX_ITER}):
         super(TextRank, self).__init__(text, use_property, no_stopwords)
