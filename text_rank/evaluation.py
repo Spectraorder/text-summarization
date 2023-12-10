@@ -57,7 +57,7 @@ def get_evaluation(path, numOfSentences, numOfKeywords, language_model=None):
         print('Average Rouge: ' + str(np.mean(rouge_score)))
         print('Average BLEU: ' + str(np.mean(blue_score)))
         print('Average F1: ' + str(np.mean(f1_score)))
-        f.write(f"sentences,keywords,window,LM_before,LM_after,filter,alpha,max_iter\n")
+        f.write(f"sentences,keywords,window,LM_before,LM_after,filter,alpha,max_iter,BLEU,ROUGE,F1\n")
         f.write(
-            f"{numOfSentences},{numOfKeywords},{WINDOW_SIZE}，{USE_LANGUAGE_MODEL_BEFORE_EXT},{USE_LANGUAGE_MODEL_AFTER_EXT},{FILTER},{ALPHA},{MAX_ITER}\n")
+            f"{numOfSentences},{numOfKeywords},{WINDOW_SIZE}，{USE_LANGUAGE_MODEL_BEFORE_EXT},{USE_LANGUAGE_MODEL_AFTER_EXT},{FILTER},{ALPHA},{MAX_ITER},{str(np.mean(rouge_score))},{str(np.mean(blue_score))},{str(np.mean(f1_score))}\n")
         return np.mean(rouge_score), np.mean(blue_score), np.mean(f1_score)

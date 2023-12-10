@@ -1,5 +1,4 @@
 from transformers import BartTokenizerFast, BartForConditionalGeneration
-from transformers import T5TokenizerFast, T5ForConditionalGeneration
 from text_rank.evaluation import *
 import torch
 from .config import *

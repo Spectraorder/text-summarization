@@ -6,3 +6,4 @@ data/
 .ipynb_checkpoints
 results
 bart_cnn_dailymail_finetuned
+result.csv
